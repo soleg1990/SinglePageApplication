@@ -9,34 +9,5 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/sparkline")
-    <script type="text/javascript">
-    $(function(){
-        var gettingVals = [];
-        //var vals = [];
-        const POINTS_COUNT = 100;
-
-        for (var i = 0; i < POINTS_COUNT; i++)
-            gettingVals[i] = null;
-
-        $(".dynamicsparkline").css({ 'border': '1px solid teal'})
-        $('.dynamicsparkline').css("width", "80%");
-        $('.dynamicsparkline').css("height", "40%");
-
-        function GetVal()
-        {
-            $.get("@Url.Action("GetPercentOfCPULoad", "Home")",
-                function (data) {
-                    DrawVal(data);
-            });
-        }
-        function DrawVal(currentVal)
-        {
-            gettingVals.push(currentVal);
-            if (gettingVals.length > POINTS_COUNT){
-                gettingVals.shift();
-            $('.dynamicsparkline').sparkline(gettingVals, { type: 'line', width: '100%', height: '100%', chartRangeMin: 0, chartRangeMax: 100 });
-        }
-        setInterval(GetVal, 1000);
-    })
-    </script>
+    @Scripts.Render("~/Scripts/chart.js")
 }
